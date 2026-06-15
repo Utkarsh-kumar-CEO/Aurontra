@@ -1,100 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 
-function App() {
-  const styles = {
-    page: {
-      minHeight: '100vh',
-      background: '#0a0a0a',
-      color: '#ffffff',
-      fontFamily: "'Poppins', sans-serif",
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '20px',
-      overflow: 'hidden',
-      position: 'relative',
-    },
-    glow: {
-      position: 'absolute',
-      width: '500px',
-      height: '500px',
-      background: 'radial-gradient(circle, rgba(0, 198, 255, 0.15) 0%, rgba(0, 198, 255, 0) 70%)',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      filter: 'blur(50px)',
-      zIndex: 0,
-    },
-    content: {
-      textAlign: 'center',
-      zIndex: 1,
-      animation: 'fadeIn 2s ease-in-out',
-    },
-    title: {
-      fontFamily: "'Orbitron', sans-serif",
-      fontSize: 'clamp(3rem, 10vw, 6rem)',
-      fontWeight: 900,
-      background: 'linear-gradient(90deg, #00C6FF, #0072FF)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      margin: 0,
-      letterSpacing: '2px',
-      textShadow: '0 0 30px rgba(0, 198, 255, 0.5)',
-    },
-    subtitle: {
-      fontSize: 'clamp(1rem, 3vw, 1.25rem)',
-      fontWeight: 300,
-      color: '#a0a0a0',
-      marginTop: '20px',
-      maxWidth: '600px',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-    button: {
-      marginTop: '40px',
-      padding: '14px 32px',
-      fontSize: '1rem',
-      fontWeight: 600,
-      color: '#fff',
-      background: 'linear-gradient(90deg, #00C6FF, #0072FF)',
-      border: 'none',
-      borderRadius: '50px',
-      cursor: 'pointer',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      boxShadow: '0 0 20px rgba(0, 198, 255, 0.4)',
-    },
-  };
+export default function App() {
+  const [chatOpen, setChatOpen] = useState(false)
+  const [msg, setMsg] = useState('')
+  const [chats, setChats] = useState([
+    {from: 'ai', text: 'Hey! I am Aurontra AI 🤖 I can build websites, write code, create stores, and automate marketing. What should we build today?'}
+  ])
+  const [mobileMenu, setMobileMenu] = useState(false)
 
-  const keyframes = `
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `;
+  const sendMsg = () => {
+    if(!msg) return
+    setChats([...chats, 
+      {from: 'user', text: msg}, 
+      {from: 'ai', text: 'That sounds amazing! With Aurontra Pro you can build this in 2 minutes. Want me to generate a demo?'}
+    ])
+    setMsg('')
+  }
+
+  useEffect(() => {
+    document.title = 'Aurontra - AI Platform by Utkarsh Kumar'
+  }, [])
 
   return (
-    <>
-      <style>{keyframes}</style>
-      <div style={styles.page}>
-        <div style={styles.glow}></div>
-        <div style={styles.content}>
-          <h1 style={styles.title}>AURONTRA</h1>
-          <p style={styles.subtitle}>
-            Crafting the future of digital experiences. Where innovation meets elegance.
-          </p>
-          <a href="mailto:utkarsh@example.com">
-            <button 
-              style={styles.button}
-              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-            >
-              Get In Touch
-            </button>
-          </a>
-        </div>
-      </div>
-    </>
-  );
-}
-
-export default App;
+    <div style={{background: '#000', color: '#fff', fontFamily: 'Inter, system-ui, Arial'}}>
+      
+      {/* Navbar */}
+      <nav style={{padding: '15px 5%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'fixed', width: '90%', background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(12px)', zIndex: 100, borderBottom: '1px solid #111'}}>
+        <h2 style={{color: '#00e5ff', fontWeight: 800, fontSize: '24px', letterSpacing: '-1px'}}>AURONTRA</h2>
+        <div style={{display: window.innerWidth > 768 ? 'flex' : 'none', gap: '35px', alignItems: 'center'}}>
+          <a href="#features" style={{color: '#ccc', textDecoration: 'none', fontSize: '15px'}}>Features</a>
+          <a href="#solutions" style={{color: '#ccc', textDecoration: 'none', fontSize: '15px'}}>Solutions</a>
+          <a href="#pricing" style={{color: '#ccc', textDecoration: 'none', fontSize: '15px'}}>Pricing</a>
+          <a href="#founder" style={{color: '#ccc', textDecoration: 'none', fontSize: '15px'}}>Founder</a>
+          <button style={{padding:
